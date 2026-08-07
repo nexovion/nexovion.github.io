@@ -1,0 +1,317 @@
+/* ===========================
+   NEXOVION - Rise of AI
+   style.css (Part 1)
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#050816;
+    color:#ffffff;
+    overflow-x:hidden;
+}
+
+/* Header */
+
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 8%;
+    background:rgba(0,0,0,.35);
+    backdrop-filter:blur(10px);
+    z-index:1000;
+}
+
+.logo{
+    font-family:'Orbitron',sans-serif;
+    font-size:30px;
+    color:#00eaff;
+    font-weight:bold;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:30px;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color:white;
+    transition:.3s;
+}
+
+nav ul li a:hover{
+    color:#00eaff;
+}
+
+/* Hero */
+
+.hero{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+    background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.7)),
+    url('assets/hero.jpg') center/cover;
+}
+
+.hero-content h1{
+    font-size:70px;
+    color:#00eaff;
+    text-shadow:0 0 20px #00eaff;
+}
+
+.hero-content h2{
+    font-size:35px;
+    margin:15px 0;
+}
+
+.hero-content p{
+    max-width:700px;
+    margin:auto;
+    color:#dddddd;
+    line-height:1.8;
+}
+
+/* Button */
+
+.btn{
+    display:inline-block;
+    margin-top:30px;
+    padding:15px 35px;
+    background:#00eaff;
+    color:#000;
+    text-decoration:none;
+    border-radius:40px;
+    font-weight:bold;
+    transition:.4s;
+}
+
+.btn:hover{
+    background:#ffffff;
+    transform:scale(1.08);
+}/* ===========================
+   Features Section
+=========================== */
+
+.features{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+    padding:80px 8%;
+    background:#08101f;
+}
+
+.card{
+    width:320px;
+    padding:30px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(0,234,255,0.2);
+    backdrop-filter:blur(10px);
+    transition:0.4s;
+    text-align:center;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 25px rgba(0,234,255,0.5);
+}
+
+.card h3{
+    color:#00eaff;
+    margin-bottom:15px;
+    font-size:24px;
+}
+
+.card p{
+    color:#dcdcdc;
+    line-height:1.8;
+}
+
+/* ===========================
+   Latest Episode
+=========================== */
+
+.latest{
+    padding:80px 8%;
+    text-align:center;
+}
+
+.latest h2{
+    font-size:40px;
+    color:#00eaff;
+    margin-bottom:40px;
+}
+
+.episode{
+    max-width:700px;
+    margin:auto;
+    padding:40px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(0,234,255,0.25);
+}
+
+.episode h3{
+    font-size:30px;
+    margin-bottom:20px;
+}
+
+.episode p{
+    color:#cccccc;
+    line-height:1.8;
+}
+
+/* ===========================
+   Footer
+=========================== */
+
+footer{
+    background:#03050d;
+    text-align:center;
+    padding:40px 20px;
+    border-top:1px solid rgba(0,234,255,0.2);
+}
+
+footer h2{
+    color:#00eaff;
+    font-family:'Orbitron',sans-serif;
+    margin-bottom:10px;
+}
+
+footer p{
+    color:#bbbbbb;
+    margin:8px 0;
+}
+/* ===========================
+   Animations
+=========================== */
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.hero-content{
+    animation:fadeUp 1.2s ease;
+}
+
+.card,
+.episode{
+    animation:fadeUp 1s ease;
+}
+
+/* Smooth Scroll */
+html{
+    scroll-behavior:smooth;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#050816;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#00eaff;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#00c8dd;
+}
+
+/* Responsive */
+
+@media(max-width:992px){
+
+header{
+    flex-direction:column;
+    gap:15px;
+}
+
+nav ul{
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:15px;
+}
+
+.hero-content h1{
+    font-size:48px;
+}
+
+.hero-content h2{
+    font-size:28px;
+}
+
+.features{
+    padding:60px 20px;
+}
+
+.card{
+    width:100%;
+    max-width:380px;
+}
+
+.latest{
+    padding:60px 20px;
+}
+
+}
+
+@media(max-width:600px){
+
+.hero{
+    padding:20px;
+}
+
+.hero-content h1{
+    font-size:36px;
+}
+
+.hero-content h2{
+    font-size:22px;
+}
+
+.hero-content p{
+    font-size:15px;
+}
+
+.btn{
+    padding:12px 28px;
+}
+
+.logo{
+    font-size:24px;
+}
+
+nav ul li a{
+    font-size:14px;
+}
+
+}
