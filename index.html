@@ -1,243 +1,1497 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nexovion — Rise of AI</title>
-<style>
-  :root{
-    --void:#04060a;
-    --panel:#0a0e15;
-    --panel-2:#0e131b;
-    --line:#1a2230;
-    --ion:#4fc3f7;
-    --ion-2:#7cf5da;
-    --steel:#c7d2dc;
-    --text:#eef2f6;
-    --text-dim:#8592a3;
-    --font-display: 'Orbitron', 'Segoe UI', sans-serif;
-    --font-body: 'Rubik', 'Segoe UI', sans-serif;
-    --font-mono: 'Roboto Mono', monospace;
-  }
+    <meta charset="UTF-8">
 
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rubik:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap');
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{background:var(--void); color:var(--text); font-family:var(--font-body); overflow-x:hidden;}
+    <meta name="description"
+          content="NEXOVION - Rise of AI. A futuristic AI cinematic universe.">
 
-  nav{
-    position:fixed; top:0; left:0; right:0; z-index:100;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:18px 6vw;
-    background:rgba(4,6,10,0.55);
-    backdrop-filter:blur(14px);
-    border-bottom:1px solid rgba(79,195,247,0.12);
-  }
-  .brand{ display:flex; align-items:center; gap:10px; font-family:var(--font-display); letter-spacing:2px; font-size:1rem; }
-  .brand img{ height:34px; width:34px; border-radius:50%; }
-  .nav-links{ display:flex; gap:30px; }
-  .nav-links a{ color:var(--text-dim); text-decoration:none; font-size:0.82rem; letter-spacing:0.5px; font-weight:500; transition:color .25s ease; }
-  .nav-links a:hover{ color:var(--ion); }
-  .nav-cta{ border:1px solid rgba(79,195,247,0.5); color:var(--ion); padding:9px 20px; font-size:0.78rem; letter-spacing:1px; border-radius:2px; text-decoration:none; transition:all .25s ease; }
-  .nav-cta:hover{ background:var(--ion); color:var(--void); box-shadow:0 0 24px rgba(79,195,247,0.4); }
-  .nav-toggle{ display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; }
-  .nav-toggle span{ width:24px; height:2px; background:var(--text); }
+    <meta name="theme-color" content="#030712">
 
-  .hero{
-    position:relative; min-height:100vh;
-    display:flex; flex-direction:column; align-items:center; justify-content:flex-end;
-    text-align:center; padding:0 6vw 90px; overflow:hidden;
-  }
-  .hero-bg{
-    position:absolute; inset:0;
-    background-image:url('assets/nexovion-hero.webp');
-    background-size:cover; background-position:center 20%; z-index:0;
-    animation:heroZoom 22s ease-in-out infinite alternate;
-  }
-  @keyframes heroZoom{ from{ transform:scale(1);} to{ transform:scale(1.08);} }
-  .hero-fade{
-    position:absolute; inset:0; z-index:1;
-    background:linear-gradient(180deg, rgba(4,6,10,0.15) 0%, rgba(4,6,10,0.35) 45%, rgba(4,6,10,0.97) 92%);
-  }
-  .hero-content{ position:relative; z-index:2; max-width:720px; }
-  .hero-logo{
-    width:96px; height:96px; border-radius:50%; margin-bottom:22px;
-    box-shadow:0 0 40px rgba(79,195,247,0.5);
-    animation:logoFloat 5s ease-in-out infinite;
-  }
-  @keyframes logoFloat{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-10px);} }
-  .eyebrow{ font-family:var(--font-mono); font-size:0.75rem; color:var(--ion); letter-spacing:4px; text-transform:uppercase; margin-bottom:16px; opacity:0.9; }
-  .hero h1{ font-family:var(--font-display); font-weight:900; font-size:clamp(2.6rem, 7vw, 5rem); line-height:1.02; letter-spacing:1px; text-shadow:0 4px 40px rgba(0,0,0,0.6); }
-  .hero h1 span{ display:block; background:linear-gradient(90deg, var(--ion), var(--ion-2)); -webkit-background-clip:text; background-clip:text; color:transparent; font-size:0.5em; letter-spacing:8px; margin-top:6px; }
-  .hero p{ color:var(--steel); margin-top:24px; font-size:1.05rem; font-weight:300; line-height:1.7; }
-  .hero-actions{ display:flex; gap:16px; justify-content:center; margin-top:38px; flex-wrap:wrap; }
-  .btn-primary, .btn-ghost{ font-family:var(--font-mono); font-size:0.82rem; letter-spacing:1px; padding:15px 30px; border-radius:2px; text-decoration:none; display:inline-flex; align-items:center; gap:10px; transition:all .25s ease; }
-  .btn-primary{ background:var(--ion); color:var(--void); font-weight:700; }
-  .btn-primary:hover{ box-shadow:0 0 30px rgba(79,195,247,0.5); transform:translateY(-2px); }
-  .btn-ghost{ border:1px solid rgba(255,255,255,0.25); color:var(--text); }
-  .btn-ghost:hover{ border-color:var(--ion); color:var(--ion); }
-  .scroll-cue{ position:absolute; bottom:26px; left:50%; transform:translateX(-50%); z-index:2; width:22px; height:36px; border:1px solid rgba(255,255,255,0.4); border-radius:12px; display:flex; justify-content:center; padding-top:6px; }
-  .scroll-cue span{ width:4px; height:8px; background:var(--ion); border-radius:2px; animation:scrollDown 1.8s ease-in-out infinite; }
-  @keyframes scrollDown{ 0%{ opacity:1; transform:translateY(0);} 100%{ opacity:0; transform:translateY(10px);} }
+    <title>NEXOVION | Rise of AI</title>
 
-  section{ position:relative; z-index:1; }
-  .section-pad{ padding:110px 6vw; }
-  .section-head{ max-width:640px; margin:0 auto 60px; text-align:center; }
-  .section-head .eyebrow{ justify-content:center; display:flex; align-items:center; gap:10px; }
-  .section-head .eyebrow::before, .section-head .eyebrow::after{ content:""; width:26px; height:1px; background:var(--ion); }
-  .section-head h2{ font-family:var(--font-display); font-size:clamp(1.7rem, 3.4vw, 2.6rem); margin-top:16px; }
-  .section-head p{ color:var(--text-dim); font-size:0.98rem; margin-top:16px; font-weight:300; line-height:1.7; }
+    <!-- Google Fonts -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
 
-  .mv-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); max-width:1000px; margin:0 auto; }
-  .mv-card{ background:var(--panel); padding:44px 38px; }
-  .mv-card .tag{ font-family:var(--font-mono); font-size:0.72rem; color:var(--ion); letter-spacing:2px; margin-bottom:16px; }
-  .mv-card h3{ font-family:var(--font-display); font-size:1.4rem; margin-bottom:16px; }
-  .mv-card p{ color:var(--text-dim); font-size:0.95rem; line-height:1.8; font-weight:300; }
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
-  .founders{ max-width:900px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:40px; }
-  .founder-card{ text-align:center; padding:40px 24px; border:1px solid var(--line); background:var(--panel); transition:border-color .3s ease, transform .3s ease; }
-  .founder-card:hover{ border-color:rgba(79,195,247,0.5); transform:translateY(-6px); }
-  .founder-avatar{ width:88px; height:88px; border-radius:50%; margin:0 auto 20px; background:radial-gradient(circle at 35% 30%, #1c2a3a, #060a10); border:1px solid rgba(79,195,247,0.4); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:1.6rem; color:var(--ion); }
-  .founder-card h4{ font-family:var(--font-display); font-size:1.1rem; margin-bottom:6px; }
-  .founder-card .role{ font-family:var(--font-mono); font-size:0.72rem; color:var(--ion); letter-spacing:1.5px; margin-bottom:14px; }
-  .founder-card p{ color:var(--text-dim); font-size:0.9rem; font-weight:300; line-height:1.7; }
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 
-  .ep-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:20px; max-width:1100px; margin:0 auto; }
-  .ep-card{ position:relative; aspect-ratio:3/4; border-radius:6px; overflow:hidden; background:linear-gradient(160deg, #10161f, #060a10); border:1px solid var(--line); display:flex; align-items:flex-end; padding:18px; transition:transform .3s ease, border-color .3s ease; }
-  .ep-card:hover{ transform:translateY(-6px); border-color:rgba(79,195,247,0.5); }
-  .ep-card::before{ content:""; position:absolute; inset:0; background:radial-gradient(circle at 50% 30%, rgba(79,195,247,0.14), transparent 60%); }
-  .ep-num{ font-family:var(--font-display); font-size:0.72rem; color:var(--ion); letter-spacing:1px; position:relative; z-index:1; }
-  .ep-title{ font-family:var(--font-body); font-size:0.85rem; color:var(--text); margin-top:4px; position:relative; z-index:1; }
-  .ep-lock{ position:absolute; top:14px; right:14px; font-size:0.7rem; color:var(--text-dim); font-family:var(--font-mono); z-index:1; }
-  .ep-more{ text-align:center; margin-top:36px; color:var(--text-dim); font-family:var(--font-mono); font-size:0.85rem; }
-
-  .cta-band{ text-align:center; padding:130px 6vw; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:radial-gradient(ellipse 60% 80% at 50% 0%, rgba(79,195,247,0.08), transparent 70%); }
-  .cta-band h2{ font-family:var(--font-display); font-size:clamp(1.8rem, 4vw, 3rem); margin-bottom:22px; }
-  .cta-band p{ color:var(--text-dim); max-width:480px; margin:0 auto 36px; font-weight:300; }
-  .cta-links{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
-
-  footer{ padding:44px 6vw; display:flex; justify-content:space-between; align-items:center; color:var(--text-dim); font-size:0.78rem; font-family:var(--font-mono); flex-wrap:wrap; gap:16px; }
-  footer a{ color:var(--text-dim); text-decoration:none; margin-left:22px; }
-  footer a:hover{ color:var(--ion); }
-
-  @media (max-width:860px){
-    .nav-links{ display:none; }
-    .nav-toggle{ display:flex; }
-    .mv-grid{ grid-template-columns:1fr; }
-    .founders{ grid-template-columns:1fr; }
-    .ep-grid{ grid-template-columns:repeat(2, 1fr); }
-    footer{ flex-direction:column; text-align:center; }
-    footer a{ margin:0 10px; }
-  }
-
-  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; } }
-</style>
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
+
+
 <body>
 
-<nav>
-  <div class="brand"><img src="assets/nexovion-logo.png" alt="Nexovion logo">NEXOVION</div>
-  <div class="nav-links">
-    <a href="#mission">Mission</a>
-    <a href="#founders">Founders</a>
-    <a href="#episodes">Episodes</a>
-    <a href="#contact">Contact</a>
-  </div>
-  <a href="#contact" class="nav-cta">GET IN TOUCH</a>
-  <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
+<!-- =========================================
+     NEXOVION VERSION 2.0
+     BACKGROUND EFFECTS
+========================================= -->
 
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-fade"></div>
-  <div class="hero-content">
-    <img src="assets/nexovion-logo.png" alt="Nexovion" class="hero-logo">
-    <div class="eyebrow">AI Stories · Future · Technology</div>
-    <h1>NEXOVION<span>RISE OF AI</span></h1>
-    <p>A world where machines learn to think. Follow the story of intelligence taking its first steps — one episode at a time.</p>
-    <div class="hero-actions">
-      <a href="#episodes" class="btn-primary">Watch Episodes →</a>
-      <a href="#mission" class="btn-ghost">Our Mission</a>
+<div class="background-effects">
+
+    <div class="glow glow-one"></div>
+
+    <div class="glow glow-two"></div>
+
+    <div class="glow glow-three"></div>
+
+</div>
+
+
+<!-- =========================================
+     HEADER / NAVIGATION
+========================================= -->
+
+<header class="main-header">
+
+    <a href="#home" class="brand">
+
+        <span class="brand-icon">N</span>
+
+        <div class="brand-text">
+
+            <span class="brand-name">
+                NEXOVION
+            </span>
+
+            <span class="brand-tag">
+                RISE OF AI
+            </span>
+
+        </div>
+
+    </a>
+
+
+    <!-- Mobile Menu Button -->
+
+    <button class="menu-toggle"
+            id="menuToggle"
+            aria-label="Open navigation menu">
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </button>
+
+
+    <!-- Navigation -->
+
+    <nav class="navbar" id="navbar">
+
+        <a href="#home"
+           class="nav-link active">
+            Home
+        </a>
+
+        <a href="#about"
+           class="nav-link">
+            About
+        </a>
+
+        <a href="#mission"
+           class="nav-link">
+            Mission
+        </a>
+
+        <a href="#vision"
+           class="nav-link">
+            Vision
+        </a>
+
+        <a href="#episodes"
+           class="nav-link">
+            Episodes
+        </a>
+
+        <a href="#contact"
+           class="nav-link">
+            Contact
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =========================================
+     HERO SECTION
+========================================= -->
+
+<main>
+
+<section class="hero" id="home">
+
+    <!-- Hero Background Image -->
+
+    <div class="hero-background"></div>
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-grid"></div>
+
+
+    <!-- Floating Decorative Elements -->
+
+    <div class="hero-orb orb-one"></div>
+
+    <div class="hero-orb orb-two"></div>
+
+
+    <!-- Hero Content -->
+
+    <div class="hero-container">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+
+                <span class="badge-dot"></span>
+
+                AI CINEMATIC UNIVERSE
+
+            </div>
+
+
+            <p class="hero-small-title">
+                WELCOME TO THE FUTURE
+            </p>
+
+
+            <h1 class="hero-title">
+
+                <span class="hero-nexovion">
+                    NEXOVION
+                </span>
+
+                <span class="hero-rise">
+                    RISE OF AI
+                </span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                In a future where artificial intelligence
+                has changed everything, a mysterious force
+                emerges that could redefine the destiny
+                of humanity forever.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a href="#episodes"
+                   class="primary-btn">
+
+                    <span>
+                        Watch Episode 1
+                    </span>
+
+                    <span class="btn-arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+                <a href="#about"
+                   class="secondary-btn">
+
+                    Explore NEXOVION
+
+                </a>
+
+            </div>
+
+
+            <!-- Hero Stats -->
+
+            <div class="hero-stats">
+
+                <div class="stat">
+
+                    <strong>
+                        2050
+                    </strong>
+
+                    <span>
+                        The New Era
+                    </span>
+
+                </div>
+
+
+                <div class="stat-line"></div>
+
+
+                <div class="stat">
+
+                    <strong>
+                        AI
+                    </strong>
+
+                    <span>
+                        Beyond Limits
+                    </span>
+
+                </div>
+
+
+                <div class="stat-line"></div>
+
+
+                <div class="stat">
+
+                    <strong>
+                        ∞
+                    </strong>
+
+                    <span>
+                        Possibilities
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
-  </div>
-  <div class="scroll-cue"><span></span></div>
+
+
+    <!-- Scroll Indicator -->
+
+    <a href="#about"
+       class="scroll-indicator">
+
+        <span>
+            SCROLL
+        </span>
+
+        <div class="scroll-line"></div>
+
+    </a>
+
 </section>
 
-<section class="section-pad" id="mission">
-  <div class="section-head">
-    <div class="eyebrow">Why Nexovion Exists</div>
-    <h2>Mission &amp; Vision</h2>
-  </div>
-  <div class="mv-grid">
-    <div class="mv-card">
-      <div class="tag">MISSION</div>
-      <h3>Tell the future before it arrives.</h3>
-      <p>We build cinematic AI stories that make the future of technology feel real, urgent, and human — turning complex ideas into worlds people want to step into.</p>
+
+<!-- =========================================
+     ABOUT NEXOVION
+========================================= -->
+
+<section class="section about-section"
+         id="about">
+
+    <div class="section-container">
+
+        <div class="section-heading reveal">
+
+            <span class="section-number">
+                01
+            </span>
+
+            <span class="section-label">
+                DISCOVER
+            </span>
+
+            <h2>
+                What is
+                <span>NEXOVION?</span>
+            </h2>
+
+            <p>
+
+                A cinematic journey into the future of
+                artificial intelligence, robotics,
+                humanity and the unknown.
+
+            </p>
+
+        </div>
+
+
+        <div class="about-grid">
+
+            <div class="about-visual reveal">
+
+                <div class="visual-frame">
+
+                    <div class="ai-core">
+
+                        <div class="core-ring ring-one"></div>
+
+                        <div class="core-ring ring-two"></div>
+
+                        <div class="core-ring ring-three"></div>
+
+                        <div class="core-center">
+
+                            <span>N</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="about-content reveal">
+
+                <span class="mini-title">
+                    THE BEGINNING
+                </span>
+
+                <h3>
+                    When intelligence
+                    becomes something
+                    <span>more.</span>
+                </h3>
+
+                <p>
+
+                    NEXOVION is a futuristic cinematic
+                    universe exploring a world where
+                    humans and artificial intelligence
+                    enter a new age together.
+
+                </p>
+
+                <p>
+
+                    Every episode reveals another piece
+                    of a larger mystery — advanced
+                    technology, intelligent machines
+                    and choices that could change
+                    humanity forever.
+
+                </p>
+
+
+                <div class="about-points">
+
+                    <div class="about-point">
+
+                        <span class="point-icon">
+                            01
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Artificial Intelligence
+                            </strong>
+
+                            <small>
+                                Beyond today's imagination
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="about-point">
+
+                        <span class="point-icon">
+                            02
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Human Future
+                            </strong>
+
+                            <small>
+                                Technology meets humanity
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="about-point">
+
+                        <span class="point-icon">
+                            03
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Cinematic Stories
+                            </strong>
+
+                            <small>
+                                A new AI universe
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
-    <div class="mv-card">
-      <div class="tag">VISION</div>
-      <h3>A universe worth returning to.</h3>
-      <p>Nexovion aims to become a home for original sci-fi storytelling — episode by episode — built by a small team with a big obsession for AI and the future.</p>
-    </div>
-  </div>
+
 </section>
 
-<section class="section-pad" id="founders" style="background:var(--panel-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
-  <div class="section-head">
-    <div class="eyebrow">Built By</div>
-    <h2>The Founders</h2>
-    <p>Two brothers, one obsession with AI and storytelling.</p>
-  </div>
-  <div class="founders">
-    <div class="founder-card">
-      <div class="founder-avatar">N</div>
-      <h4>Founder One</h4>
-      <div class="role">CO-FOUNDER</div>
-      <p>Leads the creative direction — story, world-building, and the vision behind every episode.</p>
+        <!-- =========================================
+     MISSION & VISION
+========================================= -->
+
+<section class="section purpose-section" id="mission">
+
+    <div class="section-container">
+
+        <div class="section-heading center reveal">
+
+            <span class="section-number">
+                02
+            </span>
+
+            <span class="section-label">
+                OUR PURPOSE
+            </span>
+
+            <h2>
+                Mission &
+                <span>Vision</span>
+            </h2>
+
+            <p>
+                Creating stories today that imagine
+                the possibilities of tomorrow.
+            </p>
+
+        </div>
+
+
+        <div class="purpose-grid">
+
+            <!-- Mission -->
+
+            <article class="purpose-card reveal">
+
+                <div class="purpose-top">
+
+                    <span class="purpose-number">
+                        M
+                    </span>
+
+                    <span class="purpose-line"></span>
+
+                </div>
+
+                <span class="mini-title">
+                    OUR MISSION
+                </span>
+
+                <h3>
+                    Create.
+                    Inspire.
+                    Imagine.
+                </h3>
+
+                <p>
+                    Our mission is to create immersive
+                    AI-powered cinematic stories that
+                    combine technology, imagination
+                    and human emotion.
+                </p>
+
+                <p>
+                    NEXOVION explores the opportunities
+                    and challenges that could emerge
+                    as artificial intelligence becomes
+                    part of everyday human life.
+                </p>
+
+            </article>
+
+
+            <!-- Vision -->
+
+            <article class="purpose-card featured reveal"
+                     id="vision">
+
+                <div class="purpose-top">
+
+                    <span class="purpose-number">
+                        V
+                    </span>
+
+                    <span class="purpose-line"></span>
+
+                </div>
+
+                <span class="mini-title">
+                    OUR VISION
+                </span>
+
+                <h3>
+                    A Universe
+                    Without Limits.
+                </h3>
+
+                <p>
+                    Our vision is to develop NEXOVION
+                    into an original AI cinematic universe
+                    with stories, characters and futuristic
+                    worlds that can reach audiences globally.
+                </p>
+
+                <p>
+                    From short cinematic episodes to
+                    larger digital experiences, every
+                    chapter will expand the NEXOVION
+                    universe.
+                </p>
+
+            </article>
+
+        </div>
+
     </div>
-    <div class="founder-card">
-      <div class="founder-avatar">N</div>
-      <h4>Founder Two</h4>
-      <div class="role">CO-FOUNDER</div>
-      <p>Builds the technical backbone — from the website to the systems that bring Nexovion to life.</p>
+
+</section>
+
+
+<!-- =========================================
+     FUTURE ROADMAP
+========================================= -->
+
+<section class="section roadmap-section">
+
+    <div class="section-container">
+
+        <div class="section-heading reveal">
+
+            <span class="section-number">
+                03
+            </span>
+
+            <span class="section-label">
+                THE JOURNEY
+            </span>
+
+            <h2>
+                Road to
+                <span>2050</span>
+            </h2>
+
+            <p>
+                The NEXOVION universe begins now,
+                but the story leads toward a future
+                transformed by intelligence.
+            </p>
+
+        </div>
+
+
+        <div class="timeline">
+
+            <!-- 2026 -->
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-marker">
+                    <span></span>
+                </div>
+
+                <div class="timeline-year">
+                    2026
+                </div>
+
+                <div class="timeline-content">
+
+                    <span class="mini-title">
+                        THE ORIGIN
+                    </span>
+
+                    <h3>
+                        NEXOVION Begins
+                    </h3>
+
+                    <p>
+                        The cinematic universe is born.
+                        The first stories, characters
+                        and mysteries begin to emerge.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- 2030 -->
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-marker">
+                    <span></span>
+                </div>
+
+                <div class="timeline-year">
+                    2030
+                </div>
+
+                <div class="timeline-content">
+
+                    <span class="mini-title">
+                        THE EXPANSION
+                    </span>
+
+                    <h3>
+                        Humans + AI
+                    </h3>
+
+                    <p>
+                        Intelligent machines become
+                        increasingly integrated into
+                        cities, industries and everyday life.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- 2040 -->
+
+            <div class="timeline-item reveal">
+
+                <div class="timeline-marker">
+                    <span></span>
+                </div>
+
+                <div class="timeline-year">
+                    2040
+                </div>
+
+                <div class="timeline-content">
+
+                    <span class="mini-title">
+                        THE TRANSFORMATION
+                    </span>
+
+                    <h3>
+                        A New Civilization
+                    </h3>
+
+                    <p>
+                        Robotics and artificial intelligence
+                        reshape transportation, cities
+                        and the way humans interact
+                        with technology.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- 2050 -->
+
+            <div class="timeline-item future reveal">
+
+                <div class="timeline-marker">
+                    <span></span>
+                </div>
+
+                <div class="timeline-year">
+                    2050
+                </div>
+
+                <div class="timeline-content">
+
+                    <span class="mini-title">
+                        THE UNKNOWN
+                    </span>
+
+                    <h3>
+                        The Rise of AI
+                    </h3>
+
+                    <p>
+                        Humanity enters a new era.
+                        But something unexpected has
+                        arrived — and the future will
+                        never be the same again.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
-  </div>
+
 </section>
 
-<section class="section-pad" id="episodes">
-  <div class="section-head">
-    <div class="eyebrow">The Series</div>
-    <h2>Episodes</h2>
-    <p>New episodes drop regularly. Come back often — the story is just getting started.</p>
-  </div>
-  <div class="ep-grid">
-    <div class="ep-card"><span class="ep-lock">●</span><div><div class="ep-num">EP. 01</div><div class="ep-title">Rise of AI</div></div></div>
-    <div class="ep-card"><span class="ep-lock">●</span><div><div class="ep-num">EP. 02</div><div class="ep-title">Coming Soon</div></div></div>
-    <div class="ep-card"><span class="ep-lock">●</span><div><div class="ep-num">EP. 03</div><div class="ep-title">Coming Soon</div></div></div>
-    <div class="ep-card"><span class="ep-lock">●</span><div><div class="ep-num">EP. 04</div><div class="ep-title">Coming Soon</div></div></div>
-  </div>
-  <div class="ep-more">MORE EPISODES RELEASING SOON — UP TO EP. 100</div>
+
+<!-- =========================================
+     CREATORS / FOUNDERS
+========================================= -->
+
+<section class="section creators-section"
+         id="creators">
+
+    <div class="section-container">
+
+        <div class="section-heading center reveal">
+
+            <span class="section-number">
+                04
+            </span>
+
+            <span class="section-label">
+                BEHIND THE UNIVERSE
+            </span>
+
+            <h2>
+                Meet the
+                <span>Creators</span>
+            </h2>
+
+            <p>
+                Two minds. One vision.
+                A new universe begins.
+            </p>
+
+        </div>
+
+
+        <div class="creators-grid">
+
+            <!-- Rajasekar -->
+
+            <article class="creator-card reveal">
+
+                <div class="creator-image">
+
+                    <div class="creator-placeholder">
+
+                        <span>
+                            R
+                        </span>
+
+                    </div>
+
+                    <div class="creator-glow"></div>
+
+                    <span class="creator-id">
+                        NEX-01
+                    </span>
+
+                </div>
+
+
+                <div class="creator-info">
+
+                    <span class="mini-title">
+                        CREATOR
+                    </span>
+
+                    <h3>
+                        Rajasekar
+                    </h3>
+
+                    <p class="creator-role">
+                        Co-Creator • Technology & Vision
+                    </p>
+
+                    <p>
+                        Bringing together technology,
+                        robotics, artificial intelligence
+                        and cinematic imagination to help
+                        shape the world of NEXOVION.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- Ramkumar -->
+
+            <article class="creator-card reveal">
+
+                <div class="creator-image">
+
+                    <div class="creator-placeholder">
+
+                        <span>
+                            R
+                        </span>
+
+                    </div>
+
+                    <div class="creator-glow"></div>
+
+                    <span class="creator-id">
+                        NEX-02
+                    </span>
+
+                </div>
+
+
+                <div class="creator-info">
+
+                    <span class="mini-title">
+                        CO-CREATOR
+                    </span>
+
+                    <h3>
+                        Ramkumar
+                    </h3>
+
+                    <p class="creator-role">
+                        Co-Creator • Story & Creative Universe
+                    </p>
+
+                    <p>
+                        Helping expand the characters,
+                        stories and creative direction
+                        behind the evolving NEXOVION
+                        cinematic universe.
+                    </p>
+
+                </div>
+
+            </article>
+
+        </div>
+
+
+        <div class="creator-quote reveal">
+
+            <span class="quote-mark">
+                “
+            </span>
+
+            <p>
+                We are not predicting the future.
+                We are imagining what could come next.
+            </p>
+
+            <span class="quote-signature">
+                NEXOVION
+            </span>
+
+        </div>
+
+    </div>
+
 </section>
 
-<section class="cta-band" id="contact">
-  <h2>Follow the story.<br>Join Nexovion.</h2>
-  <p>New episodes, behind-the-scenes, and updates — straight from us.</p>
-  <div class="cta-links">
-    <a href="mailto:hello@nexovion.com" class="btn-primary">hello@nexovion.com</a>
-    <a href="#" class="btn-ghost">Follow on Instagram</a>
-  </div>
+
+<!-- =========================================
+     UNIVERSE INTRODUCTION
+========================================= -->
+
+<section class="universe-section">
+
+    <div class="universe-overlay"></div>
+
+    <div class="section-container">
+
+        <div class="universe-content reveal">
+
+            <span class="section-label">
+                ENTER THE UNIVERSE
+            </span>
+
+            <h2>
+                The Future
+                Has Already
+                <span>Started.</span>
+            </h2>
+
+            <p>
+                Cities evolved.
+                Machines learned.
+                Humanity adapted.
+                Then something arrived that
+                no one was prepared for.
+            </p>
+
+            <a href="#episodes"
+               class="primary-btn">
+
+                Discover the Story
+
+                <span class="btn-arrow">
+                    →
+                </span>
+
+            </a>
+
+        </div>
+
+    </div>
+
 </section>
 
-<footer>
-  <div>© 2026 NEXOVION</div>
-  <div>
-    <a href="#mission">Mission</a>
-    <a href="#founders">Founders</a>
-    <a href="#episodes">Episodes</a>
-    <a href="#contact">Contact</a>
-  </div>
+        <!-- =========================================
+     EPISODES
+========================================= -->
+
+<section class="section episodes-section"
+         id="episodes">
+
+    <div class="section-container">
+
+        <div class="section-heading center reveal">
+
+            <span class="section-number">
+                05
+            </span>
+
+            <span class="section-label">
+                THE STORY
+            </span>
+
+            <h2>
+                NEXOVION
+                <span>Episodes</span>
+            </h2>
+
+            <p>
+                Enter the beginning of a new AI cinematic universe.
+            </p>
+
+        </div>
+
+
+        <div class="episodes-grid">
+
+            <!-- Episode 1 -->
+
+            <article class="episode-card featured-episode reveal">
+
+                <div class="episode-image">
+
+                    <div class="episode-overlay"></div>
+
+                    <span class="episode-badge">
+                        EPISODE 01
+                    </span>
+
+                    <span class="episode-status">
+                        NOW AVAILABLE
+                    </span>
+
+                </div>
+
+
+                <div class="episode-content">
+
+                    <span class="mini-title">
+                        THE BEGINNING
+                    </span>
+
+                    <h3>
+                        The Arrival
+                    </h3>
+
+                    <p>
+                        In the year 2050, humanity has
+                        entered an age of advanced AI,
+                        robotics and autonomous cities.
+                        Then a mysterious arrival changes
+                        everything.
+                    </p>
+
+                    <a href="#"
+                       class="episode-link">
+
+                        Watch Episode
+
+                        <span>
+                            →
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <!-- Episode 2 -->
+
+            <article class="episode-card reveal">
+
+                <div class="episode-image coming-soon">
+
+                    <div class="episode-overlay"></div>
+
+                    <span class="episode-badge">
+                        EPISODE 02
+                    </span>
+
+                    <span class="episode-status">
+                        COMING SOON
+                    </span>
+
+                </div>
+
+
+                <div class="episode-content">
+
+                    <span class="mini-title">
+                        NEXT CHAPTER
+                    </span>
+
+                    <h3>
+                        Unknown Signal
+                    </h3>
+
+                    <p>
+                        A strange transmission begins
+                        spreading across the connected
+                        world. No one knows where it
+                        came from.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- Episode 3 -->
+
+            <article class="episode-card reveal">
+
+                <div class="episode-image coming-soon">
+
+                    <div class="episode-overlay"></div>
+
+                    <span class="episode-badge">
+                        EPISODE 03
+                    </span>
+
+                    <span class="episode-status">
+                        COMING SOON
+                    </span>
+
+                </div>
+
+
+                <div class="episode-content">
+
+                    <span class="mini-title">
+                        THE RISE
+                    </span>
+
+                    <h3>
+                        Awakening
+                    </h3>
+
+                    <p>
+                        As machines begin to behave
+                        beyond their programming,
+                        humanity faces a question
+                        it was never ready to answer.
+                    </p>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     GALLERY PREVIEW
+========================================= -->
+
+<section class="section gallery-section"
+         id="gallery">
+
+    <div class="section-container">
+
+        <div class="section-heading reveal">
+
+            <span class="section-number">
+                06
+            </span>
+
+            <span class="section-label">
+                VISUAL UNIVERSE
+            </span>
+
+            <h2>
+                Explore the
+                <span>Gallery</span>
+            </h2>
+
+            <p>
+                A visual glimpse into the world,
+                technology and characters of NEXOVION.
+            </p>
+
+        </div>
+
+
+        <div class="gallery-grid">
+
+            <div class="gallery-card large reveal">
+
+                <div class="gallery-overlay"></div>
+
+                <div class="gallery-text">
+
+                    <span>
+                        WORLD
+                    </span>
+
+                    <h3>
+                        Future City
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="gallery-card reveal">
+
+                <div class="gallery-overlay"></div>
+
+                <div class="gallery-text">
+
+                    <span>
+                        TECHNOLOGY
+                    </span>
+
+                    <h3>
+                        AI Core
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="gallery-card reveal">
+
+                <div class="gallery-overlay"></div>
+
+                <div class="gallery-text">
+
+                    <span>
+                        CHARACTERS
+                    </span>
+
+                    <h3>
+                        The Creators
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     CONTACT
+========================================= -->
+
+<section class="section contact-section"
+         id="contact">
+
+    <div class="section-container">
+
+        <div class="contact-wrapper reveal">
+
+            <div class="contact-content">
+
+                <span class="section-label">
+                    CONNECT WITH US
+                </span>
+
+                <h2>
+                    Enter the
+                    <span>NEXOVION Universe</span>
+                </h2>
+
+                <p>
+                    Follow the journey, discover new episodes
+                    and stay connected with the future
+                    of NEXOVION.
+                </p>
+
+
+                <div class="contact-links">
+
+                    <a href="#"
+                       class="contact-link">
+
+                        <span class="contact-icon">
+                            IG
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Instagram
+                            </strong>
+
+                            <small>
+                                Follow NEXOVION
+                            </small>
+
+                        </div>
+
+                    </a>
+
+
+                    <a href="#"
+                       class="contact-link">
+
+                        <span class="contact-icon">
+                            YT
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                YouTube
+                            </strong>
+
+                            <small>
+                                Watch our stories
+                            </small>
+
+                        </div>
+
+                    </a>
+
+
+                    <a href="#"
+                       class="contact-link">
+
+                        <span class="contact-icon">
+                            GH
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                GitHub
+                            </strong>
+
+                            <small>
+                                Explore the project
+                            </small>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="contact-form-wrap">
+
+                <form class="contact-form">
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            Name
+                        </label>
+
+                        <input type="text"
+                               id="name"
+                               name="name"
+                               placeholder="Your name">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email
+                        </label>
+
+                        <input type="email"
+                               id="email"
+                               name="email"
+                               placeholder="your@email.com">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="message">
+                            Message
+                        </label>
+
+                        <textarea id="message"
+                                  name="message"
+                                  rows="5"
+                                  placeholder="Write your message..."></textarea>
+
+                    </div>
+
+
+                    <button type="submit"
+                            class="primary-btn form-btn">
+
+                        Send Message
+
+                        <span class="btn-arrow">
+                            →
+                        </span>
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     FINAL CTA
+========================================= -->
+
+<section class="final-cta">
+
+    <div class="final-glow"></div>
+
+    <div class="final-content reveal">
+
+        <span class="section-label">
+            THE FUTURE IS WAITING
+        </span>
+
+        <h2>
+            Are You Ready
+            for the
+            <span>Rise of AI?</span>
+        </h2>
+
+        <a href="#home"
+           class="primary-btn">
+
+            Return to Beginning
+
+            <span class="btn-arrow">
+                ↑
+            </span>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <div class="footer-brand">
+
+            <div class="footer-logo">
+                N
+            </div>
+
+            <div>
+
+                <h3>
+                    NEXOVION
+                </h3>
+
+                <span>
+                    RISE OF AI
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <p class="footer-description">
+            A futuristic AI cinematic universe
+            exploring technology, humanity
+            and the unknown.
+        </p>
+
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 NEXOVION.
+                All Rights Reserved.
+            </p>
+
+            <p>
+                The Future Begins Here.
+            </p>
+
+        </div>
+
+    </div>
+
 </footer>
 
+
+<!-- Main JavaScript -->
+
+<script src="script.js"></script>
+
 </body>
+
 </html>
