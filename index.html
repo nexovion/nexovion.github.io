@@ -3,548 +3,241 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXOVION — Rise of AI</title>
-<meta name="description" content="NEXOVION — an AI universe built by two brothers. The future starts here.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Nexovion — Rise of AI</title>
 <style>
   :root{
-    --void:#05060c;
-    --void-2:#0a0d18;
-    --panel:rgba(18,22,38,0.55);
-    --panel-border:rgba(140,160,255,0.14);
-    --ion:#5eead4;
-    --plasma:#c084fc;
-    --ember:#ff8a5c;
-    --text-hi:#eef1fb;
-    --text-mid:#9aa3c0;
-    --text-low:#5c6486;
-    --line:rgba(255,255,255,0.08);
+    --void:#04060a;
+    --panel:#0a0e15;
+    --panel-2:#0e131b;
+    --line:#1a2230;
+    --ion:#4fc3f7;
+    --ion-2:#7cf5da;
+    --steel:#c7d2dc;
+    --text:#eef2f6;
+    --text-dim:#8592a3;
+    --font-display: 'Orbitron', 'Segoe UI', sans-serif;
+    --font-body: 'Rubik', 'Segoe UI', sans-serif;
+    --font-mono: 'Roboto Mono', monospace;
   }
+
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rubik:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap');
+
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  body{background:var(--void); color:var(--text-hi); font-family:'Space Grotesk',sans-serif; overflow-x:hidden; line-height:1.6;}
-  ::selection{background:var(--plasma);color:#05060c;}
-  h1,h2,h3,.display{font-family:'Michroma',sans-serif;letter-spacing:0.01em;}
-  .mono{font-family:'JetBrains Mono',monospace;}
-  a{color:inherit;text-decoration:none;}
-  img{max-width:100%;display:block;}
-  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+  body{background:var(--void); color:var(--text); font-family:var(--font-body); overflow-x:hidden;}
 
-  @media (prefers-reduced-motion: reduce){
-    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 6vw;
+    background:rgba(4,6,10,0.55);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(79,195,247,0.12);
+  }
+  .brand{ display:flex; align-items:center; gap:10px; font-family:var(--font-display); letter-spacing:2px; font-size:1rem; }
+  .brand img{ height:34px; width:34px; border-radius:50%; }
+  .nav-links{ display:flex; gap:30px; }
+  .nav-links a{ color:var(--text-dim); text-decoration:none; font-size:0.82rem; letter-spacing:0.5px; font-weight:500; transition:color .25s ease; }
+  .nav-links a:hover{ color:var(--ion); }
+  .nav-cta{ border:1px solid rgba(79,195,247,0.5); color:var(--ion); padding:9px 20px; font-size:0.78rem; letter-spacing:1px; border-radius:2px; text-decoration:none; transition:all .25s ease; }
+  .nav-cta:hover{ background:var(--ion); color:var(--void); box-shadow:0 0 24px rgba(79,195,247,0.4); }
+  .nav-toggle{ display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; }
+  .nav-toggle span{ width:24px; height:2px; background:var(--text); }
+
+  .hero{
+    position:relative; min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-end;
+    text-align:center; padding:0 6vw 90px; overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute; inset:0;
+    background-image:url('assets/nexovion-hero.webp');
+    background-size:cover; background-position:center 20%; z-index:0;
+    animation:heroZoom 22s ease-in-out infinite alternate;
+  }
+  @keyframes heroZoom{ from{ transform:scale(1);} to{ transform:scale(1.08);} }
+  .hero-fade{
+    position:absolute; inset:0; z-index:1;
+    background:linear-gradient(180deg, rgba(4,6,10,0.15) 0%, rgba(4,6,10,0.35) 45%, rgba(4,6,10,0.97) 92%);
+  }
+  .hero-content{ position:relative; z-index:2; max-width:720px; }
+  .hero-logo{
+    width:96px; height:96px; border-radius:50%; margin-bottom:22px;
+    box-shadow:0 0 40px rgba(79,195,247,0.5);
+    animation:logoFloat 5s ease-in-out infinite;
+  }
+  @keyframes logoFloat{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-10px);} }
+  .eyebrow{ font-family:var(--font-mono); font-size:0.75rem; color:var(--ion); letter-spacing:4px; text-transform:uppercase; margin-bottom:16px; opacity:0.9; }
+  .hero h1{ font-family:var(--font-display); font-weight:900; font-size:clamp(2.6rem, 7vw, 5rem); line-height:1.02; letter-spacing:1px; text-shadow:0 4px 40px rgba(0,0,0,0.6); }
+  .hero h1 span{ display:block; background:linear-gradient(90deg, var(--ion), var(--ion-2)); -webkit-background-clip:text; background-clip:text; color:transparent; font-size:0.5em; letter-spacing:8px; margin-top:6px; }
+  .hero p{ color:var(--steel); margin-top:24px; font-size:1.05rem; font-weight:300; line-height:1.7; }
+  .hero-actions{ display:flex; gap:16px; justify-content:center; margin-top:38px; flex-wrap:wrap; }
+  .btn-primary, .btn-ghost{ font-family:var(--font-mono); font-size:0.82rem; letter-spacing:1px; padding:15px 30px; border-radius:2px; text-decoration:none; display:inline-flex; align-items:center; gap:10px; transition:all .25s ease; }
+  .btn-primary{ background:var(--ion); color:var(--void); font-weight:700; }
+  .btn-primary:hover{ box-shadow:0 0 30px rgba(79,195,247,0.5); transform:translateY(-2px); }
+  .btn-ghost{ border:1px solid rgba(255,255,255,0.25); color:var(--text); }
+  .btn-ghost:hover{ border-color:var(--ion); color:var(--ion); }
+  .scroll-cue{ position:absolute; bottom:26px; left:50%; transform:translateX(-50%); z-index:2; width:22px; height:36px; border:1px solid rgba(255,255,255,0.4); border-radius:12px; display:flex; justify-content:center; padding-top:6px; }
+  .scroll-cue span{ width:4px; height:8px; background:var(--ion); border-radius:2px; animation:scrollDown 1.8s ease-in-out infinite; }
+  @keyframes scrollDown{ 0%{ opacity:1; transform:translateY(0);} 100%{ opacity:0; transform:translateY(10px);} }
+
+  section{ position:relative; z-index:1; }
+  .section-pad{ padding:110px 6vw; }
+  .section-head{ max-width:640px; margin:0 auto 60px; text-align:center; }
+  .section-head .eyebrow{ justify-content:center; display:flex; align-items:center; gap:10px; }
+  .section-head .eyebrow::before, .section-head .eyebrow::after{ content:""; width:26px; height:1px; background:var(--ion); }
+  .section-head h2{ font-family:var(--font-display); font-size:clamp(1.7rem, 3.4vw, 2.6rem); margin-top:16px; }
+  .section-head p{ color:var(--text-dim); font-size:0.98rem; margin-top:16px; font-weight:300; line-height:1.7; }
+
+  .mv-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); max-width:1000px; margin:0 auto; }
+  .mv-card{ background:var(--panel); padding:44px 38px; }
+  .mv-card .tag{ font-family:var(--font-mono); font-size:0.72rem; color:var(--ion); letter-spacing:2px; margin-bottom:16px; }
+  .mv-card h3{ font-family:var(--font-display); font-size:1.4rem; margin-bottom:16px; }
+  .mv-card p{ color:var(--text-dim); font-size:0.95rem; line-height:1.8; font-weight:300; }
+
+  .founders{ max-width:900px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+  .founder-card{ text-align:center; padding:40px 24px; border:1px solid var(--line); background:var(--panel); transition:border-color .3s ease, transform .3s ease; }
+  .founder-card:hover{ border-color:rgba(79,195,247,0.5); transform:translateY(-6px); }
+  .founder-avatar{ width:88px; height:88px; border-radius:50%; margin:0 auto 20px; background:radial-gradient(circle at 35% 30%, #1c2a3a, #060a10); border:1px solid rgba(79,195,247,0.4); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:1.6rem; color:var(--ion); }
+  .founder-card h4{ font-family:var(--font-display); font-size:1.1rem; margin-bottom:6px; }
+  .founder-card .role{ font-family:var(--font-mono); font-size:0.72rem; color:var(--ion); letter-spacing:1.5px; margin-bottom:14px; }
+  .founder-card p{ color:var(--text-dim); font-size:0.9rem; font-weight:300; line-height:1.7; }
+
+  .ep-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:20px; max-width:1100px; margin:0 auto; }
+  .ep-card{ position:relative; aspect-ratio:3/4; border-radius:6px; overflow:hidden; background:linear-gradient(160deg, #10161f, #060a10); border:1px solid var(--line); display:flex; align-items:flex-end; padding:18px; transition:transform .3s ease, border-color .3s ease; }
+  .ep-card:hover{ transform:translateY(-6px); border-color:rgba(79,195,247,0.5); }
+  .ep-card::before{ content:""; position:absolute; inset:0; background:radial-gradient(circle at 50% 30%, rgba(79,195,247,0.14), transparent 60%); }
+  .ep-num{ font-family:var(--font-display); font-size:0.72rem; color:var(--ion); letter-spacing:1px; position:relative; z-index:1; }
+  .ep-title{ font-family:var(--font-body); font-size:0.85rem; color:var(--text); margin-top:4px; position:relative; z-index:1; }
+  .ep-lock{ position:absolute; top:14px; right:14px; font-size:0.7rem; color:var(--text-dim); font-family:var(--font-mono); z-index:1; }
+  .ep-more{ text-align:center; margin-top:36px; color:var(--text-dim); font-family:var(--font-mono); font-size:0.85rem; }
+
+  .cta-band{ text-align:center; padding:130px 6vw; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:radial-gradient(ellipse 60% 80% at 50% 0%, rgba(79,195,247,0.08), transparent 70%); }
+  .cta-band h2{ font-family:var(--font-display); font-size:clamp(1.8rem, 4vw, 3rem); margin-bottom:22px; }
+  .cta-band p{ color:var(--text-dim); max-width:480px; margin:0 auto 36px; font-weight:300; }
+  .cta-links{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+
+  footer{ padding:44px 6vw; display:flex; justify-content:space-between; align-items:center; color:var(--text-dim); font-size:0.78rem; font-family:var(--font-mono); flex-wrap:wrap; gap:16px; }
+  footer a{ color:var(--text-dim); text-decoration:none; margin-left:22px; }
+  footer a:hover{ color:var(--ion); }
+
+  @media (max-width:860px){
+    .nav-links{ display:none; }
+    .nav-toggle{ display:flex; }
+    .mv-grid{ grid-template-columns:1fr; }
+    .founders{ grid-template-columns:1fr; }
+    .ep-grid{ grid-template-columns:repeat(2, 1fr); }
+    footer{ flex-direction:column; text-align:center; }
+    footer a{ margin:0 10px; }
   }
 
-  #bgCanvas{
-    position:fixed; inset:0; width:100%; height:100%; z-index:0;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(94,234,212,0.10), transparent 60%),
-      radial-gradient(ellipse 70% 50% at 90% 110%, rgba(192,132,252,0.10), transparent 60%),
-      var(--void);
-  }
-  .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.035;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  header{position:fixed; top:0; left:0; right:0; z-index:100; backdrop-filter:blur(14px); background:rgba(5,6,12,0.55); border-bottom:1px solid var(--line); transition:background .3s ease;}
-  nav{display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto;}
-  .logo{display:flex; align-items:center; gap:10px; font-family:'Michroma',sans-serif; font-size:15px; letter-spacing:0.12em;}
-  .logo-icon{width:26px; height:26px; border-radius:6px; object-fit:cover;}
-  .logo .dot{width:9px;height:9px;border-radius:50%;background:var(--ion);box-shadow:0 0 12px 2px var(--ion); animation:pulse 2.4s ease-in-out infinite;}
-  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.75);}}
-  .navlinks{display:flex; gap:34px; font-size:13px; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-mid);}
-  .navlinks a{position:relative; padding:6px 0; transition:color .25s;}
-  .navlinks a:hover, .navlinks a:focus-visible{color:var(--text-hi);}
-  .navlinks a::after{content:'';position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--ion);transition:width .25s;}
-  .navlinks a:hover::after{width:100%;}
-  .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;z-index:110;}
-  .burger span{width:22px;height:2px;background:var(--text-hi);transition:all .3s;}
-  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-  .burger.open span:nth-child(2){opacity:0;}
-  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-  .mobile-menu{position:fixed; inset:0 0 0 auto; width:78%; max-width:320px; height:100vh; background:rgba(8,10,20,0.98); border-left:1px solid var(--line); display:flex; flex-direction:column; gap:8px; padding:100px 32px 40px; transform:translateX(100%); transition:transform .35s cubic-bezier(.6,0,.2,1); z-index:105;}
-  .mobile-menu.open{transform:translateX(0);}
-  .mobile-menu a{padding:14px 0; border-bottom:1px solid var(--line); font-family:'Michroma',sans-serif; font-size:14px; letter-spacing:0.08em;}
-
-  .btn{display:inline-flex; align-items:center; gap:10px; padding:14px 28px; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; border-radius:2px; cursor:pointer; border:1px solid transparent; transition:all .3s ease; font-weight:600;}
-  .btn-primary{background:var(--ion); color:#03110e;}
-  .btn-primary:hover{box-shadow:0 0 28px 4px rgba(94,234,212,0.45); transform:translateY(-2px);}
-  .btn-ghost{border-color:var(--panel-border); color:var(--text-hi); background:rgba(255,255,255,0.02);}
-  .btn-ghost:hover{border-color:var(--ion); background:rgba(94,234,212,0.06);}
-
-  .hero{position:relative; z-index:2; min-height:100vh; display:flex; align-items:center; padding:140px 0 80px;}
-  .hero-grid{display:grid; grid-template-columns:1.05fr 0.95fr; gap:50px; align-items:center; width:100%;}
-  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--ion); border:1px solid rgba(94,234,212,0.3); padding:6px 14px; border-radius:100px; margin-bottom:26px; background:rgba(94,234,212,0.05);}
-  .hero h1{font-size:clamp(38px,6vw,68px); line-height:1.06; margin-bottom:22px; background:linear-gradient(120deg,#eef1fb 30%,#b9c2e6 55%,var(--ion) 80%); -webkit-background-clip:text; background-clip:text; color:transparent;}
-  .hero p.lead{font-size:17px; color:var(--text-mid); max-width:480px; margin-bottom:34px;}
-  .hero-actions{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:44px;}
-  .hero-stats{display:flex; gap:38px;}
-  .hero-stats div{border-left:1px solid var(--line); padding-left:14px;}
-  .hero-stats b{display:block; font-family:'Michroma',sans-serif; font-size:20px; color:var(--ion);}
-  .hero-stats span{font-size:12px; color:var(--text-low); text-transform:uppercase; letter-spacing:0.06em;}
-
-  .hero-visual{position:relative; height:520px;}
-  .core-stage{position:relative; width:100%; height:100%;}
-  .core-card{position:absolute; width:230px; border-radius:16px; overflow:hidden; background:var(--panel); border:1px solid var(--panel-border); backdrop-filter:blur(18px); box-shadow:0 30px 60px -20px rgba(0,0,0,0.6); animation:float 7s ease-in-out infinite;}
-  .core-card.a{top:8%; left:2%; z-index:3;}
-  .core-card.b{bottom:6%; right:0%; z-index:2; animation-delay:-3.5s;}
-  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-16px);}}
-  .core-portrait{width:100%; aspect-ratio:1/1; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center;}
-  .core-card.a .core-portrait{background:linear-gradient(160deg,var(--ion),#0a5c53);}
-  .core-card.b .core-portrait{background:linear-gradient(160deg,var(--plasma),#4c1d95);}
-  .core-portrait img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:2;}
-  .core-portrait .fallback{position:relative; z-index:1; font-family:'Michroma',sans-serif; font-size:42px; color:var(--void);}
-  .core-portrait::after{content:''; position:absolute; inset:0; background:repeating-linear-gradient(0deg, transparent 0 3px, rgba(0,0,0,0.15) 3px 4px); mix-blend-mode:overlay; z-index:3; pointer-events:none;}
-  .core-meta{padding:14px 16px;}
-  .core-meta .role{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ion); text-transform:uppercase; letter-spacing:0.08em;}
-  .core-meta .name{font-size:15px; margin-top:3px; color:var(--text-hi); font-weight:600;}
-  .core-link{position:absolute; top:38%; left:30%; width:44%; height:2px; background:linear-gradient(90deg, var(--ion), var(--plasma)); opacity:0.5; z-index:1; transform-origin:left center;}
-
-  .scroll-cue{position:absolute; bottom:28px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-low); letter-spacing:0.1em; text-transform:uppercase;}
-  .scroll-cue .line{width:1px; height:34px; background:linear-gradient(var(--ion),transparent); animation:drop 1.8s ease-in-out infinite;}
-  @keyframes drop{0%{transform:scaleY(0); transform-origin:top;}50%{transform:scaleY(1); transform-origin:top;}50.01%{transform-origin:bottom;}100%{transform:scaleY(0); transform-origin:bottom;}}
-
-  section{position:relative; z-index:2; padding:130px 0;}
-  .sec-head{max-width:640px; margin-bottom:64px;}
-  .sec-head .eyebrow{margin-bottom:18px;}
-  .sec-head h2{font-size:clamp(28px,4vw,42px); margin-bottom:16px; color:var(--text-hi);}
-  .sec-head p{color:var(--text-mid); font-size:16px;}
-
-  .glass{background:var(--panel); border:1px solid var(--panel-border); backdrop-filter:blur(16px); border-radius:14px; transition:transform .35s ease, border-color .35s ease, box-shadow .35s ease;}
-  .glass:hover{transform:translateY(-6px); border-color:rgba(94,234,212,0.35); box-shadow:0 24px 48px -18px rgba(0,0,0,0.55);}
-
-  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;}
-  .about-grid p{color:var(--text-mid); margin-bottom:18px; font-size:15.5px;}
-  .about-grid p b{color:var(--text-hi); font-weight:600;}
-  .why-list{display:flex; flex-direction:column; gap:18px;}
-  .why-item{display:flex; gap:16px; padding:20px;}
-  .why-item .num{font-family:'JetBrains Mono',monospace; color:var(--ion); font-size:13px; padding-top:2px;}
-  .why-item h4{font-size:15px; margin-bottom:6px; color:var(--text-hi);}
-  .why-item p{color:var(--text-mid); font-size:14px; margin:0;}
-
-  .mv-cards{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:80px;}
-  .mv-card{padding:32px 26px;}
-  .mv-card .icon{width:42px; height:42px; border-radius:10px; background:rgba(94,234,212,0.08); border:1px solid rgba(94,234,212,0.25); display:flex; align-items:center; justify-content:center; margin-bottom:20px; color:var(--ion); font-size:18px;}
-  .mv-card h3{font-size:16px; margin-bottom:10px; font-weight:700;}
-  .mv-card p{font-size:14px; color:var(--text-mid);}
-
-  .timeline{position:relative; padding-left:2px;}
-  .timeline::before{content:'';position:absolute; left:64px; top:8px; bottom:8px; width:1px; background:linear-gradient(var(--ion),var(--plasma));}
-  .tl-item{display:grid; grid-template-columns:64px 1fr; gap:28px; padding:22px 0; position:relative;}
-  .tl-item .year{font-family:'JetBrains Mono',monospace; color:var(--ion); font-size:13px; text-align:right;}
-  .tl-item .dotm{position:absolute; left:60px; top:26px; width:9px; height:9px; border-radius:50%; background:var(--void); border:2px solid var(--plasma);}
-  .tl-item h4{font-size:15px; margin-bottom:6px;}
-  .tl-item p{font-size:14px; color:var(--text-mid); max-width:520px;}
-
-  .ep-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
-  .ep-card{overflow:hidden; position:relative;}
-  .ep-poster{aspect-ratio:3/4; position:relative; display:flex; align-items:flex-end; padding:22px; overflow:hidden;}
-  .ep-poster::before{content:''; position:absolute; inset:0; opacity:0.9; z-index:0;}
-  .ep-card.e1 .ep-poster::before{background:linear-gradient(200deg,#0d3b34,#05060c 70%);}
-  .ep-card.e2 .ep-poster::before,.ep-card.e3 .ep-poster::before{background:linear-gradient(200deg,#241a3d,#05060c 70%);}
-  .ep-poster img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1;}
-  .ep-poster .shade{position:absolute; inset:0; background:linear-gradient(0deg, rgba(5,6,12,0.92), rgba(5,6,12,0.15) 55%); z-index:2;}
-  .ep-tag{position:absolute; top:18px; right:18px; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.08em; padding:5px 10px; border-radius:100px; z-index:3;}
-  .ep-tag.live{background:rgba(94,234,212,0.15); color:var(--ion); border:1px solid rgba(94,234,212,0.4);}
-  .ep-tag.soon{background:rgba(255,138,92,0.12); color:var(--ember); border:1px solid rgba(255,138,92,0.35);}
-  .ep-num{font-family:'Michroma',sans-serif; font-size:12px; color:var(--text-low); position:relative; z-index:3;}
-  .ep-title{font-size:20px; font-weight:700; position:relative; z-index:3; margin-top:6px;}
-  .ep-body{padding:20px 22px;}
-  .ep-body p{font-size:13.5px; color:var(--text-mid);}
-
-  .gallery-grid{display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:140px; gap:14px;}
-  .g-item{border-radius:12px; position:relative; overflow:hidden; border:1px solid var(--panel-border);}
-  .g-item span{position:absolute; bottom:10px; left:12px; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-mid); z-index:3; text-transform:uppercase; letter-spacing:0.06em;}
-  .g-item::before{content:''; position:absolute; inset:0; z-index:0;}
-  .g-item img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1;}
-  .g-item .g-shade{position:absolute; inset:0; background:linear-gradient(0deg, rgba(5,6,12,0.75), transparent 55%); z-index:2;}
-  .g1{grid-column:span 2; grid-row:span 2;}
-  .g1::before{background:linear-gradient(135deg,#0d3b34,#0a0d18 75%);}
-  .g2::before{background:linear-gradient(135deg,#241a3d,#0a0d18 75%);}
-  .g3::before{background:linear-gradient(135deg,#1a2340,#0a0d18 75%);}
-  .g4{grid-column:span 2;}
-  .g4::before{background:linear-gradient(135deg,#3d1a2e,#0a0d18 75%);}
-  .g5::before{background:linear-gradient(135deg,#123331,#0a0d18 75%);}
-  .g6{grid-column:span 2;}
-  .g6::before{background:linear-gradient(135deg,#241a3d,#0d3b34);}
-  .g-item:hover img{transform:scale(1.06);}
-  .g-item img{transition:transform .5s ease;}
-
-  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px;}
-  .field{margin-bottom:20px;}
-  .field label{display:block; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-low); margin-bottom:8px;}
-  .field input, .field textarea{width:100%; background:rgba(255,255,255,0.03); border:1px solid var(--line); border-radius:8px; padding:13px 14px; color:var(--text-hi); font-family:'Space Grotesk',sans-serif; font-size:14px; transition:border-color .25s, background .25s;}
-  .field textarea{resize:vertical; min-height:120px;}
-  .field input:focus, .field textarea:focus{outline:none; border-color:var(--ion); background:rgba(94,234,212,0.04);}
-  .form-note{font-size:12px; color:var(--text-low); margin-top:10px;}
-  .social-list{display:flex; flex-direction:column; gap:2px;}
-  .social-row{display:flex; align-items:center; justify-content:space-between; padding:20px 4px; border-bottom:1px solid var(--line); transition:padding-left .25s;}
-  .social-row:hover{padding-left:10px; border-color:rgba(94,234,212,0.3);}
-  .social-row .plat{display:flex; align-items:center; gap:14px; font-weight:600;}
-  .social-row .ic{width:34px; height:34px; border-radius:8px; background:rgba(94,234,212,0.08); border:1px solid rgba(94,234,212,0.25); display:flex; align-items:center; justify-content:center; font-size:15px; color:var(--ion);}
-  .social-row .handle{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-low);}
-  .social-row .arrow{color:var(--text-low); transition:transform .25s, color .25s;}
-  .social-row:hover .arrow{transform:translateX(4px); color:var(--ion);}
-
-  footer{position:relative; z-index:2; border-top:1px solid var(--line); padding:60px 0 30px;}
-  .footer-top{display:flex; justify-content:space-between; flex-wrap:wrap; gap:40px; margin-bottom:50px;}
-  .footer-brand .logo{margin-bottom:14px;}
-  .footer-brand p{color:var(--text-mid); font-size:13.5px; max-width:280px;}
-  .footer-cols{display:flex; gap:70px;}
-  .footer-col h5{font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-low); margin-bottom:16px;}
-  .footer-col a{display:block; font-size:14px; color:var(--text-mid); margin-bottom:12px; transition:color .2s;}
-  .footer-col a:hover{color:var(--ion);}
-  .footer-bottom{display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; padding-top:26px; border-top:1px solid var(--line); font-size:12.5px; color:var(--text-low);}
-
-  .reveal{opacity:0; transform:translateY(28px); transition:opacity .8s ease, transform .8s ease;}
-  .reveal.show{opacity:1; transform:translateY(0);}
-
-  @media (max-width:900px){
-    .navlinks{display:none;}
-    .burger{display:flex;}
-    .hero-grid{grid-template-columns:1fr;}
-    .hero-visual{height:380px; margin-top:20px;}
-    .about-grid, .contact-grid{grid-template-columns:1fr; gap:36px;}
-    .mv-cards{grid-template-columns:1fr;}
-    .ep-grid{grid-template-columns:1fr;}
-    .gallery-grid{grid-template-columns:repeat(2,1fr); grid-auto-rows:120px;}
-    .g1,.g4,.g6{grid-column:span 2;}
-    .footer-top{flex-direction:column;}
-    .footer-cols{gap:40px;}
-  }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; } }
 </style>
 </head>
 <body>
 
-<canvas id="bgCanvas"></canvas>
-<div class="grain"></div>
+<nav>
+  <div class="brand"><img src="assets/nexovion-logo.png" alt="Nexovion logo">NEXOVION</div>
+  <div class="nav-links">
+    <a href="#mission">Mission</a>
+    <a href="#founders">Founders</a>
+    <a href="#episodes">Episodes</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#contact" class="nav-cta">GET IN TOUCH</a>
+  <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
 
-<header>
-  <nav>
-    <div class="logo">
-      <img src="images/logo.png" class="logo-icon" alt="NEXOVION logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
-      <span class="dot" style="display:none"></span>NEXOVION
-    </div>
-    <div class="navlinks">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#mission">Mission</a>
-      <a href="#episodes">Episodes</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <button class="burger" id="burger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
-  </nav>
-</header>
-
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#home">Home</a>
-  <a href="#about">About</a>
-  <a href="#mission">Mission</a>
-  <a href="#episodes">Episodes</a>
-  <a href="#gallery">Gallery</a>
-  <a href="#contact">Contact</a>
-</div>
-
-<!-- HOME -->
-<section id="home" class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <div class="eyebrow mono">● SYSTEM ONLINE — BUILT BY TWO BROTHERS</div>
-      <h1>Rise of an<br>AI Universe.</h1>
-      <p class="lead">NEXOVION is where two minds are building a world of intelligent characters, stories, and machines — one episode, one system, one idea at a time.</p>
-      <div class="hero-actions">
-        <a href="#episodes" class="btn btn-primary">Watch Episode 1</a>
-        <a href="#about" class="btn btn-ghost">Our Story</a>
-      </div>
-      <div class="hero-stats">
-        <div><b>02</b><span>Founders</span></div>
-        <div><b>01</b><span>Episodes live</span></div>
-        <div><b>2050</b><span>Roadmap horizon</span></div>
-      </div>
-    </div>
-
-    <div class="hero-visual">
-      <div class="core-stage">
-        <svg class="core-link" width="100%" height="2"><line x1="0" y1="1" x2="100%" y2="1" stroke="var(--ion)"/></svg>
-        <div class="core-card a">
-          <div class="core-portrait">
-            <img src="images/hero-core1.jpg" alt="Founder One — AI core" onerror="this.remove()">
-            <span class="fallback">N1</span>
-          </div>
-          <div class="core-meta">
-            <div class="role">Core.Founder</div>
-            <div class="name">Creator One</div>
-          </div>
-        </div>
-        <div class="core-card b">
-          <div class="core-portrait">
-            <img src="images/hero-core2.jpg" alt="Founder Two — AI core" onerror="this.remove()">
-            <span class="fallback">N2</span>
-          </div>
-          <div class="core-meta">
-            <div class="role">Core.Founder</div>
-            <div class="name">Creator Two</div>
-          </div>
-        </div>
-      </div>
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-fade"></div>
+  <div class="hero-content">
+    <img src="assets/nexovion-logo.png" alt="Nexovion" class="hero-logo">
+    <div class="eyebrow">AI Stories · Future · Technology</div>
+    <h1>NEXOVION<span>RISE OF AI</span></h1>
+    <p>A world where machines learn to think. Follow the story of intelligence taking its first steps — one episode at a time.</p>
+    <div class="hero-actions">
+      <a href="#episodes" class="btn-primary">Watch Episodes →</a>
+      <a href="#mission" class="btn-ghost">Our Mission</a>
     </div>
   </div>
-  <div class="scroll-cue"><span>Scroll</span><span class="line"></span></div>
+  <div class="scroll-cue"><span></span></div>
 </section>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow mono">01 — ABOUT</div>
-      <h2>Two brothers. One AI universe.</h2>
-      <p>NEXOVION started as a small experiment between siblings and grew into a full creative-tech brand.</p>
+<section class="section-pad" id="mission">
+  <div class="section-head">
+    <div class="eyebrow">Why Nexovion Exists</div>
+    <h2>Mission &amp; Vision</h2>
+  </div>
+  <div class="mv-grid">
+    <div class="mv-card">
+      <div class="tag">MISSION</div>
+      <h3>Tell the future before it arrives.</h3>
+      <p>We build cinematic AI stories that make the future of technology feel real, urgent, and human — turning complex ideas into worlds people want to step into.</p>
     </div>
-    <div class="about-grid">
-      <div class="reveal">
-        <p>NEXOVION began as a late-night idea between two brothers who wanted to build something that didn't exist yet — <b>a brand where AI, storytelling, and design merge into one universe.</b> No big studio, no funding. Just two people, a laptop, and a vision of the future.</p>
-        <p>What started as a single animated episode is now becoming a growing world of characters, artwork, and systems — each piece built by hand, shipped in public, and improved in the open.</p>
-        <p>Every update to this site is part of that same experiment: <b>build small, ship fast, upgrade constantly.</b></p>
-      </div>
-      <div class="why-list reveal">
-        <div class="why-item glass"><div class="num">01</div><div><h4>Built by two, not a hundred</h4><p>Every frame, line and layout is made directly by the founders — nothing outsourced.</p></div></div>
-        <div class="why-item glass"><div class="num">02</div><div><h4>Story-first AI</h4><p>NEXOVION treats AI as a character and a canvas, not just a tool.</p></div></div>
-        <div class="why-item glass"><div class="num">03</div><div><h4>Open build-in-public</h4><p>The roadmap, the wins, and the failures are all shared as they happen.</p></div></div>
-      </div>
+    <div class="mv-card">
+      <div class="tag">VISION</div>
+      <h3>A universe worth returning to.</h3>
+      <p>Nexovion aims to become a home for original sci-fi storytelling — episode by episode — built by a small team with a big obsession for AI and the future.</p>
     </div>
   </div>
 </section>
 
-<!-- MISSION & VISION -->
-<section id="mission">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow mono">02 — MISSION &amp; VISION</div>
-      <h2>Why NEXOVION exists.</h2>
-      <p>A mission for today, and a roadmap that stretches toward 2050.</p>
+<section class="section-pad" id="founders" style="background:var(--panel-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="section-head">
+    <div class="eyebrow">Built By</div>
+    <h2>The Founders</h2>
+    <p>Two brothers, one obsession with AI and storytelling.</p>
+  </div>
+  <div class="founders">
+    <div class="founder-card">
+      <div class="founder-avatar">N</div>
+      <h4>Founder One</h4>
+      <div class="role">CO-FOUNDER</div>
+      <p>Leads the creative direction — story, world-building, and the vision behind every episode.</p>
     </div>
-
-    <div class="mv-cards reveal">
-      <div class="mv-card glass"><div class="icon">◆</div><h3>Mission</h3><p>Make advanced AI storytelling feel personal — built by real people, not a faceless company.</p></div>
-      <div class="mv-card glass"><div class="icon">▲</div><h3>Vision</h3><p>Grow NEXOVION into a full AI universe: characters, episodes, tools, and a community around all of it.</p></div>
-      <div class="mv-card glass"><div class="icon">●</div><h3>Values</h3><p>Ship in public. Stay independent. Let quality and consistency compound over time.</p></div>
-    </div>
-
-    <div class="timeline reveal">
-      <div class="tl-item"><div class="year mono">2026</div><div class="dotm"></div><div><h4>Foundation</h4><p>NEXOVION brand, website, and Episode 1 go live. The universe officially begins.</p></div></div>
-      <div class="tl-item"><div class="year mono">2028</div><div class="dotm"></div><div><h4>Expansion</h4><p>Multi-episode story arcs, original characters, and a growing gallery of AI artwork.</p></div></div>
-      <div class="tl-item"><div class="year mono">2032</div><div class="dotm"></div><div><h4>Platform</h4><p>NEXOVION tools and interactive experiences move beyond a single website.</p></div></div>
-      <div class="tl-item"><div class="year mono">2050</div><div class="dotm"></div><div><h4>Universe</h4><p>A fully realised NEXOVION AI universe — stories, systems, and a community built around it.</p></div></div>
+    <div class="founder-card">
+      <div class="founder-avatar">N</div>
+      <h4>Founder Two</h4>
+      <div class="role">CO-FOUNDER</div>
+      <p>Builds the technical backbone — from the website to the systems that bring Nexovion to life.</p>
     </div>
   </div>
 </section>
 
-<!-- EPISODES -->
-<section id="episodes">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow mono">03 — EPISODES</div>
-      <h2>The story so far.</h2>
-      <p>Movie-style drops from the NEXOVION universe.</p>
-    </div>
-    <div class="ep-grid reveal">
-      <div class="ep-card glass e1">
-        <div class="ep-poster">
-          <img src="images/episode1.jpg" alt="Episode 1 — The Arrival" onerror="this.remove()">
-          <div class="shade"></div>
-          <span class="ep-tag live">● LIVE</span>
-          <div><div class="ep-num mono">EPISODE 01</div><div class="ep-title">The Arrival</div></div>
-        </div>
-        <div class="ep-body"><p>Where it all begins — the first signal, the first character, the first step into the NEXOVION universe.</p></div>
-      </div>
-      <div class="ep-card glass e2">
-        <div class="ep-poster">
-          <img src="images/episode2.jpg" alt="Episode 2 — Coming Soon" onerror="this.remove()">
-          <div class="shade"></div>
-          <span class="ep-tag soon">SOON</span>
-          <div><div class="ep-num mono">EPISODE 02</div><div class="ep-title">Coming Soon</div></div>
-        </div>
-        <div class="ep-body"><p>The next chapter is in production. Details unlock as the story develops.</p></div>
-      </div>
-      <div class="ep-card glass e3">
-        <div class="ep-poster">
-          <img src="images/episode3.jpg" alt="Episode 3 — Coming Soon" onerror="this.remove()">
-          <div class="shade"></div>
-          <span class="ep-tag soon">SOON</span>
-          <div><div class="ep-num mono">EPISODE 03</div><div class="ep-title">Coming Soon</div></div>
-        </div>
-        <div class="ep-body"><p>Further out on the roadmap — the universe keeps expanding.</p></div>
-      </div>
-    </div>
+<section class="section-pad" id="episodes">
+  <div class="section-head">
+    <div class="eyebrow">The Series</div>
+    <h2>Episodes</h2>
+    <p>New episodes drop regularly. Come back often — the story is just getting started.</p>
   </div>
+  <div class="ep-grid">
+    <div class="ep-card"><span class="ep-lock">●</span><div><div class="ep-num">EP. 01</div><div class="ep-title">Rise of AI</div></div></div>
+    <div class="ep-card"><span class="ep-lock">●</span><div><div class="ep-num">EP. 02</div><div class="ep-title">Coming Soon</div></div></div>
+    <div class="ep-card"><span class="ep-lock">●</span><div><div class="ep-num">EP. 03</div><div class="ep-title">Coming Soon</div></div></div>
+    <div class="ep-card"><span class="ep-lock">●</span><div><div class="ep-num">EP. 04</div><div class="ep-title">Coming Soon</div></div></div>
+  </div>
+  <div class="ep-more">MORE EPISODES RELEASING SOON — UP TO EP. 100</div>
 </section>
 
-<!-- GALLERY -->
-<section id="gallery">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow mono">04 — GALLERY</div>
-      <h2>Visuals from the universe.</h2>
-      <p>AI artwork, character posters, and future-city concepts.</p>
-    </div>
-    <div class="gallery-grid reveal">
-      <div class="g-item g1"><img src="images/gallery1.jpg" alt="Character Poster 01" onerror="this.remove()"><div class="g-shade"></div><span>Character Poster — 01</span></div>
-      <div class="g-item g2"><img src="images/gallery2.jpg" alt="Future City 01" onerror="this.remove()"><div class="g-shade"></div><span>Future City — 01</span></div>
-      <div class="g-item g3"><img src="images/gallery3.jpg" alt="AI Concept 01" onerror="this.remove()"><div class="g-shade"></div><span>AI Concept — 01</span></div>
-      <div class="g-item g4"><img src="images/gallery4.jpg" alt="Character Poster 02" onerror="this.remove()"><div class="g-shade"></div><span>Character Poster — 02</span></div>
-      <div class="g-item g5"><img src="images/gallery5.jpg" alt="AI Concept 02" onerror="this.remove()"><div class="g-shade"></div><span>AI Concept — 02</span></div>
-      <div class="g-item g6"><img src="images/gallery6.jpg" alt="Future City 02" onerror="this.remove()"><div class="g-shade"></div><span>Future City — 02</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow mono">05 — CONTACT</div>
-      <h2>Get in touch.</h2>
-      <p>Questions, collabs, or just want to say hi — reach out.</p>
-    </div>
-    <div class="contact-grid reveal">
-      <form id="contactForm" onsubmit="return handleSubmit(event)">
-        <div class="field"><label for="name">Name</label><input id="name" type="text" required placeholder="Your name"></div>
-        <div class="field"><label for="email">Email</label><input id="email" type="email" required placeholder="you@email.com"></div>
-        <div class="field"><label for="message">Message</label><textarea id="message" required placeholder="Tell us something..."></textarea></div>
-        <button type="submit" class="btn btn-primary">Send Message</button>
-        <p class="form-note" id="formNote">This form doesn't send anywhere yet — connect it to Formspree, EmailJS, or your own backend to go live.</p>
-      </form>
-
-      <div class="social-list">
-        <a class="social-row" href="#" target="_blank" rel="noopener">
-          <span class="plat"><span class="ic">IG</span>Instagram</span>
-          <span class="handle mono">@nexovion →</span>
-        </a>
-        <a class="social-row" href="#" target="_blank" rel="noopener">
-          <span class="plat"><span class="ic">▶</span>YouTube</span>
-          <span class="handle mono">/nexovion →</span>
-        </a>
-        <a class="social-row" href="#" target="_blank" rel="noopener">
-          <span class="plat"><span class="ic">GH</span>GitHub</span>
-          <span class="handle mono">/nexovion →</span>
-        </a>
-        <a class="social-row" href="mailto:hello@nexovion.com">
-          <span class="plat"><span class="ic">@</span>Email</span>
-          <span class="handle mono">hello@nexovion.com →</span>
-        </a>
-      </div>
-    </div>
+<section class="cta-band" id="contact">
+  <h2>Follow the story.<br>Join Nexovion.</h2>
+  <p>New episodes, behind-the-scenes, and updates — straight from us.</p>
+  <div class="cta-links">
+    <a href="mailto:hello@nexovion.com" class="btn-primary">hello@nexovion.com</a>
+    <a href="#" class="btn-ghost">Follow on Instagram</a>
   </div>
 </section>
 
 <footer>
-  <div class="wrap">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <div class="logo">
-          <img src="images/logo.png" class="logo-icon" alt="NEXOVION logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
-          <span class="dot" style="display:none"></span>NEXOVION
-        </div>
-        <p>An AI universe built by two brothers — stories, systems, and worlds, shipped in the open.</p>
-      </div>
-      <div class="footer-cols">
-        <div class="footer-col">
-          <h5>Site</h5>
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <a href="#mission">Mission</a>
-          <a href="#episodes">Episodes</a>
-        </div>
-        <div class="footer-col">
-          <h5>Connect</h5>
-          <a href="#" target="_blank" rel="noopener">Instagram</a>
-          <a href="#" target="_blank" rel="noopener">YouTube</a>
-          <a href="#" target="_blank" rel="noopener">GitHub</a>
-          <a href="mailto:hello@nexovion.com">Email</a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 NEXOVION. All rights reserved.</span>
-      <span class="mono">v2.0 — Rise of AI</span>
-    </div>
+  <div>© 2026 NEXOVION</div>
+  <div>
+    <a href="#mission">Mission</a>
+    <a href="#founders">Founders</a>
+    <a href="#episodes">Episodes</a>
+    <a href="#contact">Contact</a>
   </div>
 </footer>
 
-<script>
-const burger = document.getElementById('burger');
-const mobileMenu = document.getElementById('mobileMenu');
-burger.addEventListener('click', () => { burger.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
-document.querySelectorAll('.mobile-menu a').forEach(a => a.addEventListener('click', () => { burger.classList.remove('open'); mobileMenu.classList.remove('open'); }));
-
-const revealEls = document.querySelectorAll('.reveal');
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
-}, { threshold: 0.15 });
-revealEls.forEach(el => io.observe(el));
-
-function handleSubmit(e){
-  e.preventDefault();
-  const note = document.getElementById('formNote');
-  note.textContent = "Thanks — message captured locally. Connect this form to a backend (Formspree / EmailJS) to actually deliver it.";
-  note.style.color = 'var(--ion)';
-  document.getElementById('contactForm').reset();
-  return false;
-}
-
-const canvas = document.getElementById('bgCanvas');
-const ctx = canvas.getContext('2d');
-let w, h, nodes = [];
-const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-function resize(){
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = window.innerHeight;
-  const count = Math.min(90, Math.floor((w*h)/22000));
-  nodes = Array.from({length: count}, () => ({
-    x: Math.random()*w, y: Math.random()*h,
-    vx: (Math.random()-0.5)*0.25, vy: (Math.random()-0.5)*0.25,
-    r: Math.random()*1.6 + 0.6
-  }));
-}
-window.addEventListener('resize', resize);
-resize();
-
-function step(){
-  ctx.clearRect(0,0,w,h);
-  for(const n of nodes){
-    if(!prefersReduced){
-      n.x += n.vx; n.y += n.vy;
-      if(n.x < 0 || n.x > w) n.vx *= -1;
-      if(n.y < 0 || n.y > h) n.vy *= -1;
-    }
-  }
-  for(let i=0;i<nodes.length;i++){
-    for(let j=i+1;j<nodes.length;j++){
-      const a = nodes[i], b = nodes[j];
-      const dx = a.x-b.x, dy = a.y-b.y;
-      const dist = Math.sqrt(dx*dx+dy*dy);
-      if(dist < 150){
-        ctx.strokeStyle = `rgba(94,234,212,${(1-dist/150)*0.12})`;
-        ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
-      }
-    }
-  }
-  for(const n of nodes){
-    ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
-    ctx.fillStyle = 'rgba(94,234,212,0.55)'; ctx.fill();
-  }
-  if(!prefersReduced) requestAnimationFrame(step);
-}
-step();
-
-const header = document.querySelector('header');
-window.addEventListener('scroll', () => {
-  header.style.background = window.scrollY > 40 ? 'rgba(5,6,12,0.85)' : 'rgba(5,6,12,0.55)';
-});
-</script>
 </body>
 </html>
